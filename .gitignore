@@ -1,0 +1,49 @@
+# ==============================================================================
+# OilTankSight-AI .gitignore
+# ==============================================================================
+
+# 1. Python virtual environments
+oilDec_env/
+.venv/
+venv/
+env/
+ENV/
+
+# 2. Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# 3. Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# 4. Large training runs & checkpoints (2.6GB+ total, epoch*.pt > 200MB)
+runs/
+yolov8m.pt
+weights/
+*.pth
+*.onnx
+*.engine
+
+# (Optional: include best.pt if < 50MB, or ignore if using GitHub Releases)
+# To ignore all .pt weights uncomment: *.pt
+# To keep best.pt:
+*.pt
+!best.pt
+
+# 5. Datasets (Large satellite imagery ~300MB - downloaded via scripts/prepare_data.py)
+data/
+dataset/
+
+# 6. Runtime generated configs & temporary files
+configs/_runtime_dataset.yaml
+*.log
+
+# 7. IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

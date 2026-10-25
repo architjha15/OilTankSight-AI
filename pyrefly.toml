@@ -1,0 +1,11 @@
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
+
+project-excludes = [
+    "**/oilDec_env/**",
+    "**/__pycache__/**",
+]
+
+python-interpreter-path = "oilDec_env/bin/python"
