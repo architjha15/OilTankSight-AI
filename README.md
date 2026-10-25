@@ -6,7 +6,7 @@
 
 ## Performance at a Glance
 
-Oil storage tanks range from \~10m to \~120+m in diameter. Upgrading from the baseline YOLOv5 to an **anchor-free YOLOv8m** naturally handles this 12× size variation, pushing our mAP@0.5 to **92.18%** (+3.8% over baseline).
+Oil storage tanks range from ~10m to ~120+m in diameter. Upgrading from the baseline YOLOv5 to an **anchor-free YOLOv8m** naturally handles this 12× size variation, pushing our mAP@0.5 to **92.18%** (+3.8% over baseline).
 
 | Metric | Value | Metric | Value | 
 | ----- | ----- | ----- | ----- | 
@@ -14,7 +14,7 @@ Oil storage tanks range from \~10m to \~120+m in diameter. Upgrading from the ba
 | **mAP@0.50:0.95** | `63.72%` | **Recall** | `84.58%` | 
 | **F1-Score** | `81.07%` | **AUC-PR** | `79.38%` | 
 
-*⚠️ All metrics evaluated strictly on a held-out test set of 275 tiles, never seen during training.*
+*Note: All metrics evaluated strictly on a held-out test set of 275 tiles, never seen during training.*
 
 ## Visual Showcase
 
@@ -28,13 +28,13 @@ Oil storage tanks range from \~10m to \~120+m in diameter. Upgrading from the ba
 
 ```mermaid
 flowchart TD
-    A[Raw SPOT Scenes<br>98 JPEGs, 2560x2560 px] --> B{CLAHE Enhancement<br>Optional / LAB Color}
-    B --> C[Sliding-Window Tiling<br>640px, overlap 64px]
-    C --> D[Annotation Clipping<br>Discard <30% visible]
-    D --> E[Stratified Split<br>70% Train | 20% Val | 10% Test]
-    E --> F[(YOLOv8m Training<br>100 Epochs, AMP, AdamW)]
-    F --> G([Test-Set Evaluation<br>275 held-out tiles])
-    G --> H[/Hough Circle Fitting<br>Post-Processing for Radius/]
+    A["Raw SPOT Scenes<br>98 JPEGs, 2560x2560 px"] --> B{"CLAHE Enhancement<br>Optional / LAB Color"}
+    B --> C["Sliding-Window Tiling<br>640px, overlap 64px"]
+    C --> D["Annotation Clipping<br>Discard &lt;30% visible"]
+    D --> E["Stratified Split<br>70% Train | 20% Val | 10% Test"]
+    E --> F[("YOLOv8m Training<br>100 Epochs, AMP, AdamW")]
+    F --> G(["Test-Set Evaluation<br>275 held-out tiles"])
+    G --> H[/"Hough Circle Fitting<br>Post-Processing for Radius"/]
     
     style F fill:#00d4ff,stroke:#000,stroke-width:2px,color:#000
     style H fill:#ff9900,stroke:#000,stroke-width:2px,color:#000
@@ -45,7 +45,6 @@ flowchart TD
 Oil tanks appear as near-perfect circles from nadir satellite view. After bounding-box detection, a two-stage circle fit is applied:
 
 1. **Hough Circle Transform:** On the CLAHE-enhanced crop bounded by the YOLO prediction.
-
 2. **Contour Circularity Fallback:** If Hough fails, accepts the largest contour if `circularity > 0.45`.
 
 Combined with solar azimuth from EXIF metadata, this physical radius estimation (`radius_px × 1.2 m/px`) enables **automated fill-level estimation**.
